@@ -371,6 +371,8 @@ def read_data(fname, sheet_name="", delimiter=","):
         return read_csv(fname, delimiter)
     elif fname.lower().endswith(".shp"):
         return read_shp(fname)
+    elif fname.lower().endswith(".gpkg"):
+        return read_gpkg_attributes(fname)
     elif fname.lower().endswith(".las") or fname.lower().endswith(".laz"):
         return read_las(fname)
     elif sheet_name:

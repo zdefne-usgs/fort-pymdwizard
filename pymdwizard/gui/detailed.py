@@ -112,7 +112,7 @@ class Detailed(WizardWidget):  #
 
         filter = "data files (*.csv *.txt *.shp *.xls *.xlsm *.xlsx "
         filter += "*.tif *.grd *.png *.img *.jpg *.hdr *.bmp *.adf "
-        filter += "*.las *.laz)"
+        filter += "*.las *.laz *.gpkg)"
 
         fname = QFileDialog.getOpenFileName(self, fname, dname, filter=filter)
         if fname[0]:
@@ -220,6 +220,46 @@ class Detailed(WizardWidget):  #
                 shape_attr.supersize_me()
                 shape_attr.store_current_content()
                 shape_attr.regularsize_me()
+
+
+
+
+        elif ext.lower() == ".gpkg":
+            self.clear_widget()
+            self.ui.fgdc_enttypl.setText(shortname + " Attribute Table")
+            self.ui.fgdc_enttypd.setPlainText(
+                "Table containing attribute information associated with the data set."
+            )
+
+            df = data_io.read_data(fname)
+            self.attributes.load_df(df)
+
+            # fid_attr = self.attributes.get_attr("FID")
+            # if fid_attr is not None:
+            #     fid_attr.populate_domain_content(3)
+            #     fid_attr.ui.fgdc_attrdef.setPlainText("Internal feature number.")
+            #     utils.set_text(fid_attr.ui.fgdc_attrdefs, "OGC")
+            #     fid_attr.domain.ui.fgdc_udom.setPlainText(
+            #         "Sequential unique whole numbers that are automatically generated."
+            #     )
+            #     fid_attr.regularsize_me()
+            #     fid_attr.supersize_me()
+            shape_attr = self.attributes.get_attr("Shape")
+            if shape_attr is not None:
+                shape_attr.populate_domain_content(3)
+                shape_attr.ui.fgdc_attrdef.setPlainText("Feature geometry.")
+                utils.set_text(shape_attr.ui.fgdc_attrdefs, "OGC")
+                shape_attr.domain.ui.fgdc_udom.setPlainText(
+                    "Shape type."
+                )
+                shape_attr.store_current_content()
+                shape_attr.supersize_me()
+                shape_attr.store_current_content()
+                shape_attr.regularsize_me()
+
+
+
+
 
         elif ext.lower() in [".xlsm", ".xlsx", ".xls"]:
             if sheet_name is None:
