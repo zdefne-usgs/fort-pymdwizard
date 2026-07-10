@@ -2,13 +2,15 @@ name: pymdwizard
 channels:
   - conda-forge
 dependencies:
-  - python=3.9
+  - python=3.13 
   - pip
   - cryptography
   - numpy
   - pandas
   - geopandas
+  - git
   - gdal
+  - habanero
   - matplotlib
   - folium
   - fiona
@@ -22,9 +24,12 @@ dependencies:
   - requests
   - beautifulsoup4
   - pyyaml
-  - pyqt=5
-  - qtpy
+  - pyqt            
+  - pyqtwebengine  
   - pip:
-    - pyqtwebengine
-    - sciencebasepy
-    - pip-system-certs
+      - sciencebasepy
+      - pip-system-certs
+      - GitPython
+      - python-docx
+      - laspy
+prefix: pymdwizard
