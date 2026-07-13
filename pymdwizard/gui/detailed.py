@@ -294,6 +294,10 @@ class Detailed(WizardWidget):  #
 
             # Open dataset.
             df = data_io.read_data(fname)
+            for col in df.columns:
+                # we need this check to be backward compatible between numpy>2 and pandas
+                if df[col].dtype == 'str':
+                    df[col] = df[col].astype('object')
             self.attributes.load_df(df)
 
             # Set defaults for required ESRI attributes (FID and Shape).
@@ -331,18 +335,22 @@ class Detailed(WizardWidget):  #
             )
 
             df = data_io.read_data(fname)
+            for col in df.columns:
+                # we need this check to be backward compatible between numpy>2 and pandas
+                if df[col].dtype == 'str':
+                    df[col] = df[col].astype('object')
             self.attributes.load_df(df)
 
-            # fid_attr = self.attributes.get_attr("FID")
-            # if fid_attr is not None:
-            #     fid_attr.populate_domain_content(3)
-            #     fid_attr.ui.fgdc_attrdef.setPlainText("Internal feature number.")
-            #     utils.set_text(fid_attr.ui.fgdc_attrdefs, "OGC")
-            #     fid_attr.domain.ui.fgdc_udom.setPlainText(
-            #         "Sequential unique whole numbers that are automatically generated."
-            #     )
-            #     fid_attr.regularsize_me()
-            #     fid_attr.supersize_me()
+            fid_attr = self.attributes.get_attr("FID")
+            if fid_attr is not None:
+                fid_attr.populate_domain_content(3)
+                fid_attr.ui.fgdc_attrdef.setPlainText("Internal feature number.")
+                utils.set_text(fid_attr.ui.fgdc_attrdefs, "OGC")
+                fid_attr.domain.ui.fgdc_udom.setPlainText(
+                    "Sequential unique whole numbers that are automatically generated."
+                )
+                fid_attr.regularsize_me()
+                fid_attr.supersize_me()
             shape_attr = self.attributes.get_attr("Shape")
             if shape_attr is not None:
                 shape_attr.populate_domain_content(3)
