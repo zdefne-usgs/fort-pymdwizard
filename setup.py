@@ -7,7 +7,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
-with open("requirements.txt") as f:
+with open("environment.yml") as f:
     tests_require = f.readlines()
 install_requires = [t.strip() for t in tests_require]
 
@@ -49,12 +49,11 @@ setup(
         "Intended Audience :: End Users/Desktop",
         "Topic :: Software Development :: Build Tools",
         "License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.3",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
     ],
     keywords="metadata FGDC BDP CSDGM",
     packages=find_packages(exclude=["tests"]),
